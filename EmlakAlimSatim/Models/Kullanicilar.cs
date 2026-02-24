@@ -10,13 +10,13 @@ namespace EmlakAlimSatim.Models
         public string Ad { get; set; } = string.Empty;
         [Required(ErrorMessage = "Soyadı Boş Bırakamazsınız")]
         public string Soyad { get; set; } = string.Empty;
-        [Required(ErrorMessage = "Email Boş Bırakılmaz")]
+        [Required(ErrorMessage = "Geçerli Bir E-mail Adresi Giriniz")]
         public string Email { get; set; } = string.Empty;
         [Required(ErrorMessage = "Şifreyi Boş Bırakamazsınız")]
         public string SifreHash { get; set; } = string.Empty;
         [Required(ErrorMessage = "Telefon Numarasını Boş Bırakamazsınız")]
         public string PhoneNumber { get; set; } = string.Empty;
         public string Role { get; set; }
-        public DateTime ? KayitTarihi { get; set; }
+        public DateTime  KayitTarihi { get; set; }
     }
 }

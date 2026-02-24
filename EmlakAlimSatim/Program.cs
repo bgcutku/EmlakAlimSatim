@@ -26,6 +26,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+//Areas Rotasý
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+
+//Ana Site Yönlendirmesi
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

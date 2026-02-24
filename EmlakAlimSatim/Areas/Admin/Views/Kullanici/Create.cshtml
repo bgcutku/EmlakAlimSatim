@@ -1,0 +1,57 @@
+﻿@model EmlakAlimSatim.Models.Kullanicilar
+@{
+    ViewData["Title"] = "Yeni Kullanıcı";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h4>Yeni Kullanıcı Ekle</h4>
+        </div>
+
+        <div class="card-body">
+            <form asp-area="Admin" asp-controller="Kullanici" asp-action="Create" method="post">
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Ad</label>
+                        <input asp-for="Ad" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Soyad</label>
+                        <input asp-for="Soyad" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Email</label>
+                        <input asp-for="Email" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Telefon</label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Şifre</label>
+                        <input asp-for="SifreHash" type="password" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Rol</label>
+                        <select asp-for="Role" class="form-select">
+                            <option value="User">User</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success">Kaydet</button>
+
+                <a asp-action="Index" class="btn btn-secondary">Geri</a>
+
+            </form>
+        </div>
+    </div>
+</div>
