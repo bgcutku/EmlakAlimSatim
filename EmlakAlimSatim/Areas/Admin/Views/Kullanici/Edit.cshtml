@@ -1,0 +1,64 @@
+﻿@model EmlakAlimSatim.Models.Kullanicilar
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container mt-4">
+    <div class="card shadow">
+    <div class="card-header bg-warning text-white">
+        <h4>Kullanıcı Düzenleme</h4>
+    </div>
+
+    <div class="card-body">
+        <form asp-area="Admin" asp-controller="Kullanici" asp-action="Edit" method="post">
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Ad</label>
+                    <input asp-for="Ad" class="form-control" />
+                    <span asp-validation-for="Ad" style="color:red"></span>
+                    <input type="hidden" asp-for="KullaniciID" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Soyad</label>
+                    <input asp-for="Soyad" class="form-control" />
+                    <span asp-validation-for="Soyad" style="color:red"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" style="color:red"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Telefon</label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" style="color:red"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Şifre</label>
+                    <input asp-for="SifreHash" type="password" class="form-control" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Rol</label>
+                    <select asp-for="Role" class="form-select">
+                        <option value="User">User</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-warning">Kaydet</button>
+
+            <a asp-action="Index" class="btn btn-secondary">Geri</a>
+
+        </form>
+    </div>
+</div>
+</div>

@@ -27,6 +27,7 @@ namespace EmlakAlimSatim.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                kullanici.KayitTarihi = DateTime.Now;
                 _context.kullanicilars.Add(kullanici);
                 _context.SaveChanges();
                 return RedirectToAction("Index", "Kullanici", new {area="Admin"});
@@ -36,12 +37,27 @@ namespace EmlakAlimSatim.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            var veri = _context.kullanicilars.Find(id);
+            return View(veri);
+        }
+        [HttpPost]
+        public IActionResult Edit(Kullanicilar kullanicilar)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.kullanicilars.Update(kullanicilar);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Kullanici", new { area = "Admin" });
+            }
             return View();
         }
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            return View();
+            var veri = _context.kullanicilars.Find(id);
+            _context.kullanicilars.Remove(veri);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Kullanici", new { area = "Admin" });            
 
         }
     }

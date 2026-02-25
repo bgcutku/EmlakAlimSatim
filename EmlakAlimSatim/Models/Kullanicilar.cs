@@ -16,7 +16,7 @@ namespace EmlakAlimSatim.Models
         public string SifreHash { get; set; } = string.Empty;
         [Required(ErrorMessage = "Telefon Numarasını Boş Bırakamazsınız")]
         public string PhoneNumber { get; set; } = string.Empty;
-        public string Role { get; set; }
+        public string Role { get; set; } = string.Empty;
         public DateTime  KayitTarihi { get; set; }
     }
 }
