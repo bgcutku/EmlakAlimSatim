@@ -8,6 +8,6 @@
         public int CityId { get; set; }
         public City? City { get; set; }
 
-        public ICollection<Property>Properties { get; set; } = new List<Property>();
+        public ICollection<Property> Properties { get; set; } = new List<Property>();
     }
 }

@@ -9,6 +9,11 @@ namespace EmlakAlimSatim.Data
         { }
         public DbSet<Kullanicilar> kullanicilars { get; set; }
         public DbSet<Property> Properties { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<PropertyImage> PropertyImages { get; set; }
+
 
 
     }
