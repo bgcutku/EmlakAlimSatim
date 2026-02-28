@@ -1,0 +1,108 @@
+﻿@model IEnumerable<EmlakAlimSatim.Models.Property>
+
+@{
+    ViewData["Title"] = "İlan Yönetimi";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">İlan Yönetimi</h1>
+        <a asp-action="Create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50"></i> Yeni İlan Oluştur
+        </a>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tüm İlanlar (@Model.Count())</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 80px;">Görsel</th>
+                            <th>İlan Bilgileri</th>
+                            <th>Fiyat</th>
+                            <th>Detaylar</th>
+                            <th>Konum / Kategori</th>
+                            <th class="text-center">Durum</th>
+                            <th class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    @if (!string.IsNullOrEmpty(item.CoverImage))
+                                    {
+                                        <img src="@item.CoverImage" class="rounded img-thumbnail" style="width: 70px; height: 50px; object-fit: cover;" />
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-gray-200 rounded d-flex align-items-center justify-content-center" style="width: 70px; height: 50px;">
+                                            <i class="fas fa-home text-gray-500"></i>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="font-weight-bold text-dark">@item.Title</div>
+                                    <div class="small text-muted text-truncate" style="max-width: 250px;">@item.Description</div>
+                                </td>
+                                <td>
+                                    <span class="text-success font-weight-bold">@item.Price.ToString("N0") ₺</span>
+                                    <div class="small text-info">@item.ListingType</div>
+                                </td>
+                                <td>
+                                    <div class="small"><i class="fas fa-expand-arrows-alt fa-fw"></i> @item.SquareMeters m²</div>
+                                    <div class="small"><i class="fas fa-door-open fa-fw"></i> @item.RoomCount Odalı</div>
+                                </td>
+                                <td>
+                                    <div class="small"><i class="fas fa-map-marker-alt fa-fw text-danger"></i> @item.City?.Name / @item.District?.Name</div>
+                                    <div class="badge badge-light border mt-1">@item.Category?.Name</div>
+                                </td>
+                                <td class="text-center">
+                                    @if (item.IsActive)
+                                    {
+                                        <span class="badge badge-success px-3">Aktif</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-secondary px-3">Pasif</span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group shadow-sm">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary" title="Düzenle">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info" title="İncele">
+                                            <i class="fas fa-search"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger" title="Sil">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
+                }
+            });
+        });
+    </script>
+}

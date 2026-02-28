@@ -1,0 +1,155 @@
+﻿@model EmlakAlimSatim.Models.Property
+
+@{
+    ViewData["Title"] = "Yeni İlan Ekle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Yeni İlan Ekle</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Emlak Bilgileri</h6>
+        </div>
+        <div class="card-body">            
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">                    
+                    <div class="col-md-12 mb-4">
+                        <div class="p-3 border rounded bg-light">
+                            <label class="font-weight-bold text-dark">İlan Kapak Fotoğrafı</label>
+                            <input type="file" name="ImageFile" class="form-control-file" accept="image/*" onchange="previewImage(this)" />
+                            <div class="mt-3">
+                                <img id="imgPreview" src="https://via.placeholder.com/200x120?text=Resim+Secilmedi"
+                                     class="img-thumbnail shadow-sm" style="max-height: 150px;" />
+                            </div>
+                            <small class="text-muted d-block mt-2">Öneri: Kare veya yatay formatta bir resim seçiniz.</small>
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-md-12 form-group">
+                        <label asp-for="Title" class="control-label font-weight-bold">İlan Başlığı</label>
+                        <input asp-for="Title" class="form-control" placeholder="Örn: Boğaz Manzaralı Satılık Daire" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label asp-for="Price" class="control-label font-weight-bold">Fiyat (TL)</label>
+                        <input asp-for="Price" class="form-control" type="number" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label asp-for="SquareMeters" class="control-label font-weight-bold">Metrekare (m²)</label>
+                        <input asp-for="SquareMeters" class="form-control" type="number" />
+                        <span asp-validation-for="SquareMeters" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4 form-group">
+                        <label asp-for="RoomCount" class="control-label font-weight-bold">Oda Sayısı</label>
+                        <input asp-for="RoomCount" class="form-control" placeholder="Örn: 3+1" />
+                        <span asp-validation-for="RoomCount" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label asp-for="BuildingAge" class="control-label font-weight-bold">Bina Yaşı</label>
+                        <input asp-for="BuildingAge" class="form-control" type="number" />
+                        <span asp-validation-for="BuildingAge" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label asp-for="Floor" class="control-label font-weight-bold">Bulunduğu Kat</label>
+                        <input asp-for="Floor" class="form-control" type="number" placeholder="Örn: 2" />
+                        <span asp-validation-for="Floor" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label asp-for="TotalFloors" class="control-label font-weight-bold">Toplam Kat Sayısı</label>
+                        <input asp-for="TotalFloors" class="form-control" type="number" placeholder="Örn: 5" />
+                        <span asp-validation-for="TotalFloors" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label asp-for="HeatingType" class="control-label font-weight-bold">Isınma Tipi</label>
+                        <select asp-for="HeatingType" class="form-control">
+                            <option value="">Seçiniz...</option>
+                            <option value="Kombi (Doğalgaz)">Kombi (Doğalgaz)</option>
+                            <option value="Merkezi Sistem">Merkezi Sistem</option>
+                            <option value="Merkezi Sistem (Pay Ölçer)">Merkezi Sistem (Pay Ölçer)</option>
+                            <option value="Yerden Isıtma">Yerden Isıtma</option>
+                            <option value="Klima">Klima</option>
+                            <option value="Soba">Soba</option>
+                            <option value="Isı Pompası">Isı Pompası</option>
+                            <option value="Yok">Yok</option>
+                        </select>
+                        <span asp-validation-for="HeatingType" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-3 form-group">
+                        <label asp-for="CategoryId" class="control-label font-weight-bold">Kategori</label>
+                        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label asp-for="CityId" class="control-label font-weight-bold">Şehir</label>
+                        <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label asp-for="DistrictId" class="control-label font-weight-bold">İlçe</label>
+                        <select asp-for="DistrictId" class="form-control" asp-items="ViewBag.DistrictId"></select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label asp-for="ListingType" class="control-label font-weight-bold">İlan Tipi</label>
+                        <select asp-for="ListingType" class="form-control">
+                            <option value="">Seçiniz...</option>
+                            <option value="Satılık">Satılık</option>
+                            <option value="Kiralık">Kiralık</option>
+                            <option value="Günlük Kiralık">Günlük Kiralık</option>
+                        </select>
+                        <span asp-validation-for="ListingType" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label font-weight-bold">Açıklama</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="KullaniciId" class="control-label font-weight-bold">İlan Sahibi</label>
+                    <select asp-for="KullaniciId" class="form-control" asp-items="ViewBag.KullaniciId"></select>
+                </div>
+
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsActive" /> <strong>İlanı Aktif Et</strong>
+                    </label>
+                </div>
+
+                <div class="form-group mt-4 border-top pt-3">
+                    <button type="submit" class="btn btn-primary btn-lg shadow">
+                        <i class="fas fa-save"></i> Kaydet ve Yayınla
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary btn-lg ml-2">İptal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Resim seçildiğinde önizleme yapan basit script
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imgPreview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

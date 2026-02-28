@@ -1,0 +1,83 @@
+﻿@model EmlakAlimSatim.Models.Property
+
+@{
+    ViewData["Title"] = "İlan Silme Onayı";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card border-danger shadow">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="card-title mb-0"><i class="fas fa-exclamation-triangle mr-2"></i> İlan Silme Onayı</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h4 class="alert-heading">Dikkat!</h4>
+                        <p>Bu mülk kaydını silmek üzeresiniz. Bu işlem geri alınamaz. Devam etmek istediğinizden emin misiniz?</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-primary border-bottom pb-2">Genel Bilgiler</h5>
+                            <dl class="row">
+                                <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.Title)</dt>
+                                <dd class="col-sm-7 font-weight-bold">@Html.DisplayFor(model => model.Title)</dd>
+
+                                <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.Price)</dt>
+                                <dd class="col-sm-7 text-success">@Model.Price.ToString("C2")</dd>
+
+                                <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.Category)</dt>
+                                <dd class="col-sm-7">@Html.DisplayFor(model => model.Category.Name)</dd>
+
+                                <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.ListingType)</dt>
+                                <dd class="col-sm-7"><span class="badge badge-info">@Model.ListingType</span></dd>
+                            </dl>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5 class="text-primary border-bottom pb-2">Teknik Detaylar</h5>
+                            <dl class="row">
+                                <dt class="col-sm-5 text-muted">Konum</dt>
+                                <dd class="col-sm-7">@Model.City?.Id / @Model.District?.Id</dd>
+
+                                <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.SquareMeters)</dt>
+                                <dd class="col-sm-7">@Model.SquareMeters m²</dd>
+
+                                <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.RoomCount)</dt>
+                                <dd class="col-sm-7">@Model.RoomCount</dd>
+
+                                <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.IsActive)</dt>
+                                <dd class="col-sm-7">
+                                    @(Model.IsActive? Html.Raw("<span class='badge badge-success'>Aktif</span>") : Html.Raw("<span class='badge badge-secondary'>Pasif</span>"))
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h5 class="text-primary">@Html.DisplayNameFor(model => model.Description)</h5>
+                            <p class="text-justify border p-3 bg-light">@Model.Description</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-light text-right">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <a asp-action="Index" class="btn btn-secondary shadow-sm">
+                            <i class="fas fa-arrow-left"></i> Listeye Dön
+                        </a>
+                        <button type="submit" class="btn btn-danger shadow-sm ml-2">
+                            <i class="fas fa-trash"></i> Kalıcı Olarak Sil
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

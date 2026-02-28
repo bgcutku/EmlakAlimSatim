@@ -32,13 +32,13 @@ namespace EmlakAlimSatim.Data
 
             modelBuilder.Entity<Property>()
                 .HasOne(p => p.City)
-                .WithMany()
+                .WithMany(c => c.Properties)
                 .HasForeignKey(p => p.CityId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Property>()
                 .HasOne(p => p.District)
-                .WithMany()
+                .WithMany(d => d.Properties)
                 .HasForeignKey(p => p.DistrictId)
                 .OnDelete(DeleteBehavior.Restrict);
 

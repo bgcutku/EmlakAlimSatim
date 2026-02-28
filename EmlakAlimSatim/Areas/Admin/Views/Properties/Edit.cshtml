@@ -1,0 +1,176 @@
+﻿@model EmlakAlimSatim.Models.Property
+
+@{
+    ViewData["Title"] = "İlan Düzenle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">İlanı Düzenle</h1>
+        <a asp-action="Index" class="btn btn-sm btn-secondary shadow-sm">
+            <i class="fas fa-arrow-left fa-sm"></i> Listeye Dön
+        </a>
+    </div>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="CreatedAt" /> 
+        <input type="hidden" asp-for="CoverImage" />
+        <input type="hidden" asp-for="KullaniciId" />
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Genel Bilgiler</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mb-3">
+                            <label asp-for="Title" class="font-weight-bold">İlan Başlığı</label>
+                            <input asp-for="Title" class="form-control" placeholder="Örn: Kadıköy'de Satılık 3+1" />
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="font-weight-bold">Açıklama</label>
+                            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                                <label asp-for="Price" class="font-weight-bold">Fiyat (₺)</label>
+                                <div class="input-group">
+                                    <input asp-for="Price" class="form-control" />
+                                    <div class="input-group-append"><span class="input-group-text">₺</span></div>
+                                </div>
+                                <span asp-validation-for="Price" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label asp-for="ListingType" class="font-weight-bold">İlan Türü</label>
+                                <select asp-for="ListingType" class="form-control">
+                                    <option value="Satılık">Satılık</option>
+                                    <option value="Kiralık">Kiralık</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Teknik Özellikler</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="SquareMeters" class="small font-weight-bold">Metrekare (Net)</label>
+                                <input asp-for="SquareMeters" class="form-control" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="RoomCount" class="small font-weight-bold">Oda Sayısı</label>
+                                <input asp-for="RoomCount" class="form-control" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="BuildingAge" class="small font-weight-bold">Bina Yaşı</label>
+                                <input asp-for="BuildingAge" class="form-control" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Floor" class="small font-weight-bold">Bulunduğu Kat</label>
+                                <input asp-for="Floor" class="form-control" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="TotalFloors" class="small font-weight-bold">Toplam Kat</label>
+                                <input asp-for="TotalFloors" class="form-control" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="HeatingType" class="small font-weight-bold">Isınma</label>
+                                <input asp-for="HeatingType" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Kapak Görseli</h6>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img id="previewImage" src="@(string.IsNullOrEmpty(Model.CoverImage) ? "/img/no-image.png" : Model.CoverImage)"
+                                 class="img-fluid rounded shadow-sm border" style="max-height: 200px; width: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" name="ImageFile" id="ImageFile" class="custom-file-input" accept="image/*" onchange="previewFile()">
+                            <label class="custom-file-label text-left" for="ImageFile">Resim Seç...</label>
+                        </div>
+                        <small class="text-muted mt-2 d-block">Değiştirmek istemiyorsanız boş bırakın.</small>
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Konum & Kategori</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mb-3">
+                            <label asp-for="CategoryId" class="small font-weight-bold">Kategori</label>
+                            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="CityId" class="small font-weight-bold">Şehir</label>
+                            <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="DistrictId" class="small font-weight-bold">İlçe</label>
+                            <select asp-for="DistrictId" class="form-control" asp-items="ViewBag.DistrictId"></select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Address" class="small font-weight-bold">Tam Adres</label>
+                            <textarea asp-for="Address" class="form-control" rows="2"></textarea>
+                        </div>
+                        <hr />
+                        <div class="custom-control custom-switch mt-3">
+                            <input type="checkbox" class="custom-control-input" asp-for="IsActive">
+                            <label class="custom-control-label font-weight-bold" for="IsActive">İlan Yayında mı?</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg shadow">
+                    <i class="fas fa-save"></i> Değişiklikleri Kaydet
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Dosya seçildiğinde önizlemeyi güncelleme
+        function previewFile() {
+            var preview = document.getElementById('previewImage');
+            var file = document.querySelector('input[type=file]').files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Bootstrap custom file input ismini göstermek için
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+}

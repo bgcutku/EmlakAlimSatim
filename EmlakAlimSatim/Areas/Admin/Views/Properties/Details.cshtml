@@ -1,0 +1,105 @@
+﻿@model EmlakAlimSatim.Models.Property
+
+@{
+    ViewData["Title"] = "İlan Detayları";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0"><i class="fas fa-info-circle mr-2"></i> @Model.Title</h4>
+            <span class="badge @(Model.IsActive ? "badge-success" : "badge-danger")">
+                @(Model.IsActive ? "Aktif" : "Pasif")
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 border-right">
+                    <h5 class="text-muted"><i class="fas fa-image mr-1"></i> Kapak Görseli</h5>
+                    @if (!string.IsNullOrEmpty(Model.CoverImage))
+                    {
+                        <img src="@Model.CoverImage" class="img-fluid rounded shadow-sm border" alt="Property Image" />
+                    }
+                    else
+                    {
+                        <div class="bg-light d-flex align-items-center justify-content-center rounded border" style="height: 200px;">
+                            <span class="text-muted">Görsel Yok</span>
+                        </div>
+                    }
+
+                    <div class="mt-4 p-3 bg-light rounded">
+                        <h6><i class="fas fa-user mr-1"></i> İlan Sahibi</h6>
+                        <p class="mb-1"><strong>@Model.Kullanici?.Ad</strong></p>
+                        <small class="text-muted">Eklenme: @Model.CreatedAt.ToShortDateString()</small>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-primary border-bottom pb-2">Temel Bilgiler</h5>
+                            <table class="table table-sm table-borderless">
+                                <tr>
+                                    <th style="width: 40%">Fiyat:</th>
+                                    <td class="text-success font-weight-bold">@Model.Price.ToString("C2")</td>
+                                </tr>
+                                <tr>
+                                    <th>Kategori:</th>
+                                    <td>@Model.Category?.Name</td>
+                                </tr>
+                                <tr>
+                                    <th>İlan Tipi:</th>
+                                    <td><span class="badge badge-info">@Model.ListingType</span></td>
+                                </tr>
+                                <tr>
+                                    <th>Konum:</th>
+                                    <td>@Model.City?.Id / @Model.District?.Id</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-primary border-bottom pb-2">Mülk Detayları</h5>
+                            <table class="table table-sm table-borderless">
+                                <tr>
+                                    <th style="width: 40%">Metrekare:</th>
+                                    <td>@Model.SquareMeters m²</td>
+                                </tr>
+                                <tr>
+                                    <th>Oda Sayısı:</th>
+                                    <td>@Model.RoomCount</td>
+                                </tr>
+                                <tr>
+                                    <th>Isınma:</th>
+                                    <td>@Model.HeatingType</td>
+                                </tr>
+                                <tr>
+                                    <th>Kat:</th>
+                                    <td>@Model.Floor / @Model.TotalFloors</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <h5 class="text-primary border-bottom pb-2">Açıklama</h5>
+                        <p class="text-muted" style="line-height: 1.6;">@Model.Description</p>
+                    </div>
+
+                    <div class="mt-3">
+                        <h5 class="text-primary border-bottom pb-2">Adres</h5>
+                        <p><i class="fas fa-map-marker-alt text-danger mr-1"></i> @Model.Address</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-light text-right">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="fas fa-chevron-left"></i> Geri Dön
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning shadow-sm ml-2">
+                <i class="fas fa-edit"></i> Düzenle
+            </a>
+        </div>
+    </div>
+</div>
