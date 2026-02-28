@@ -8,6 +8,7 @@ namespace EmlakAlimSatim.Data
         public EmlakDbContext(DbContextOptions<EmlakDbContext>options):base(options)
         { }
         public DbSet<Kullanicilar> kullanicilars { get; set; }
+        public DbSet<Property> Properties { get; set; }
 
 
     }
