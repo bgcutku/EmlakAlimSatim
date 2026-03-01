@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EmlakAlimSatim.Data;
 using EmlakAlimSatim.Models;
+using EmlakAlimSatim.Filters;
 
 namespace EmlakAlimSatim.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AdminAuthFilter]
     public class PropertiesController : Controller
     {
         private readonly EmlakDbContext _context;

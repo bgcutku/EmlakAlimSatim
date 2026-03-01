@@ -1,10 +1,12 @@
 ﻿using EmlakAlimSatim.Data;
 using EmlakAlimSatim.Models;
 using Microsoft.AspNetCore.Mvc;
+using EmlakAlimSatim.Filters;
 
 namespace EmlakAlimSatim.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AdminAuthFilter]
     public class KullaniciController : Controller
     {
         private readonly EmlakDbContext _context;

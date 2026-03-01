@@ -4,10 +4,9 @@ using EmlakAlimSatim.Filters;
 namespace EmlakAlimSatim.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [AdminAuthFilter] // AdminAuthFilter'ı kullanarak bu controller'a erişimi korur
-    public class AdminController : Controller
+    [AdminAuthFilter]  // Admin paneli koruma
+    public class DashboardController : Controller
     {
-        [Area("Admin")]
         public IActionResult Index()
         {
             return View();

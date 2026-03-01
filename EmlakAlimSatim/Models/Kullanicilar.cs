@@ -6,6 +6,8 @@ namespace EmlakAlimSatim.Models
     {
         [Key]
         public int KullaniciID { get; set; }
+        [Required(ErrorMessage = "Kullanıcı Adı Boş Bırakılamaz")]
+        public string? KullaniciAdi { get; set; }
         [Required(ErrorMessage ="Adı Boş Bırakamazsınız")]
         public string Ad { get; set; } = string.Empty;
         [Required(ErrorMessage = "Soyadı Boş Bırakamazsınız")]
@@ -17,6 +19,7 @@ namespace EmlakAlimSatim.Models
         [Required(ErrorMessage = "Telefon Numarasını Boş Bırakamazsınız")]
         public string PhoneNumber { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
+        public bool IsAdmin { get; set; }
         public DateTime  KayitTarihi { get; set; }
     }
 }

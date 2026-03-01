@@ -42,6 +42,21 @@ namespace EmlakAlimSatim.Data
                 .HasForeignKey(p => p.DistrictId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Kullanicilar>()
+                .HasData(new Kullanicilar
+                {
+                    KullaniciID = 12,
+                    KullaniciAdi = "admin",
+                    Ad = "Admin",
+                    Soyad = "User",
+                    Email = "admin@emlakalimsatim.com",
+                    PhoneNumber = "1234567890",
+                    Role = "Admin",
+                    KayitTarihi = DateTime.Now,
+                    SifreHash = "Admin1234.!"
+
+                });
+
             //Seed Kateori
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Konut", Icon = "fa-home", IsActive = true },
