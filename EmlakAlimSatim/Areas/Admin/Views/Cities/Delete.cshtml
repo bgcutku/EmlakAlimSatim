@@ -1,0 +1,62 @@
+﻿@model EmlakAlimSatim.Models.City
+
+@{
+    ViewData["Title"] = "Şehir Sil";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-danger">
+
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">Şehir Silme Onayı</h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-warning">
+                Bu şehri silmek istediğinize emin misiniz?
+            </div>
+
+            <dl class="row">
+
+                <dt class="col-sm-3 fw-bold">
+                    ID
+                </dt>
+                <dd class="col-sm-9">
+                    @Model.Id
+                </dd>
+
+                <dt class="col-sm-3 fw-bold">
+                    Şehir Adı
+                </dt>
+                <dd class="col-sm-9">
+                    @Model.Name
+                </dd>
+
+            </dl>
+
+            <form asp-action="Delete">
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="d-flex justify-content-between">
+
+                    <a asp-action="Index" class="btn btn-secondary">
+                        ← Vazgeç
+                    </a>
+
+                    <button type="submit" class="btn btn-danger">
+                        🗑️ Sil
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

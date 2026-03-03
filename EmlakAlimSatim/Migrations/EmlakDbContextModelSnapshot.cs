@@ -197,13 +197,51 @@ namespace EmlakAlimSatim.Migrations
                             Ad = "Admin",
                             Email = "admin@emlakalimsatim.com",
                             IsAdmin = false,
-                            KayitTarihi = new DateTime(2026, 3, 1, 18, 58, 8, 306, DateTimeKind.Local).AddTicks(8932),
+                            KayitTarihi = new DateTime(2026, 3, 4, 1, 30, 8, 32, DateTimeKind.Local).AddTicks(6244),
                             KullaniciAdi = "admin",
                             PhoneNumber = "1234567890",
                             Role = "Admin",
                             SifreHash = "Admin1234.!",
                             Soyad = "User"
                         });
+                });
+
+            modelBuilder.Entity("EmlakAlimSatim.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SendDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("EmlakAlimSatim.Models.Property", b =>
@@ -322,6 +360,17 @@ namespace EmlakAlimSatim.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("EmlakAlimSatim.Models.Message", b =>
+                {
+                    b.HasOne("EmlakAlimSatim.Models.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Property");
                 });
 
             modelBuilder.Entity("EmlakAlimSatim.Models.Property", b =>

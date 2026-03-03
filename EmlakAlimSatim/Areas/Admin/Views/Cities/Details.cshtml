@@ -1,0 +1,54 @@
+﻿@model EmlakAlimSatim.Models.City
+
+@{
+    ViewData["Title"] = "Şehir Detayı";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">Şehir Detayı</h4>
+        </div>
+
+        <div class="card-body">
+
+            <dl class="row">
+
+                <dt class="col-sm-3 fw-bold">
+                    ID
+                </dt>
+                <dd class="col-sm-9">
+                    @Model.Id
+                </dd>
+
+                <dt class="col-sm-3 fw-bold">
+                    Şehir Adı
+                </dt>
+                <dd class="col-sm-9">
+                    @Model.Name
+                </dd>
+
+            </dl>
+
+            <hr />
+
+            <div class="d-flex justify-content-between">
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    ← Listeye Dön
+                </a>
+
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                    Düzenle
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

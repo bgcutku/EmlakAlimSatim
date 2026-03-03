@@ -1,0 +1,119 @@
+﻿@model EmlakAlimSatim.Models.Property
+
+@{
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="hero page-inner overlay" style="background-image: url('@Url.Content("~/Home/images/hero_bg_1.jpg")');">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h1 class="heading">@Model.Title</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb text-center justify-content-center">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active text-white-50">
+                            İlan Detayı
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row justify-content-between">
+
+            <!-- SOL TARAF -->
+            <div class="col-lg-7">
+
+                <div class="img-property-slide-wrap">
+                    <div class="img-property-slide">
+                        <img src="@(string.IsNullOrEmpty(Model.CoverImage) ? "/Home/images/img_1.jpg" : Model.CoverImage)"
+                             alt="Image"
+                             class="img-fluid" />
+                    </div>
+                </div>
+
+                <h2 class="heading text-primary mt-4">
+                    @Model.Price.ToString("N0") ₺
+                </h2>
+
+                <p class="meta">
+                    @Model.City?.Name / @Model.District?.Name
+                </p>
+
+                <div class="specs d-flex mb-4">
+                    <span class="d-block d-flex align-items-center me-3">
+                        <span class="icon-home me-2"></span>
+                        <span class="caption">@Model.RoomCount Oda</span>
+                    </span>
+
+                </div>
+
+                <div>
+                    <h4>Açıklama</h4>
+                    <p>@Model.Description</p>
+                </div>
+
+            </div>
+
+            <!-- SAĞ TARAF (Mesaj Formu) -->
+            <div class="col-lg-4">
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">@TempData["Success"]</div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["Error"]</div>
+                }
+
+                <div class="bg-light p-4 rounded">
+
+                    <h3 class="mb-4">İlan Sahibi ile İletişim</h3>
+
+                    <form method="post" asp-controller="Message" asp-action="Send">
+
+                        <input type="hidden" name="PropertyId" value="@Model.Id" />
+
+                        <div class="mb-3">
+                            <input type="text"
+                                   name="Name"
+                                   class="form-control"
+                                   placeholder="Adınız" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="email"
+                                   name="Email"
+                                   class="form-control"
+                                   placeholder="Email" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <textarea name="Content"
+                                      class="form-control"
+                                      rows="5"
+                                      placeholder="Mesajınız"
+                                      required></textarea>
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-primary w-100">
+                            Mesaj Gönder
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

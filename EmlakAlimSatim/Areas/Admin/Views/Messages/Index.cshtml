@@ -1,0 +1,40 @@
+﻿@model List<EmlakAlimSatim.Models.Message>
+
+@{
+    ViewData["Title"] = "Gelen Mesajlar";
+}
+
+<h2 class="mb-4">Gelen Mesajlar</h2>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>İlan</th>
+            <th>Gönderen</th>
+            <th>Email</th>
+            <th>Mesaj</th>
+            <th>Tarih</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var msg in Model)
+        {
+            <tr>
+                <td>@msg.Id</td>
+                <td>@msg.Property?.Title</td>
+                <td>@msg.Name</td>
+                <td>@msg.Email</td>
+                <td>@msg.Content</td>
+                <td>@msg.SendDate.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Messages" asp-action="Delete" asp-route-id="@msg.Id"
+                       class="btn btn-danger btn-sm" onclick="return confirm('Mesajı silmek istediğine emin misin?');">
+                        Sil
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<EmlakAlimSatim.Models.District>
+
+@{
+    ViewData["Title"] = "İlçe Listesi";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2 class="fw-bold text-dark">İlçe Yönetimi</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                    <li class="breadcrumb-item active">İlçeler</li>
+                </ol>
+            </nav>
+        </div>
+        <a asp-action="Create" class="btn btn-primary shadow-sm px-4">
+            <i class="fas fa-plus-circle me-1"></i> Yeni İlçe Ekle
+        </a>
+    </div>
+
+    <div class="card shadow border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4 py-3" style="width: 40%">
+                                <i class="fas fa-map-marker-alt text-secondary me-1"></i> @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th class="py-3" style="width: 30%">
+                                <i class="fas fa-city text-secondary me-1"></i> @Html.DisplayNameFor(model => model.City)
+                            </th>
+                            <th class="text-center py-3" style="width: 30%">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 fw-bold text-dark">
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    <span class="badge bg-info text-dark bg-opacity-10 border border-info px-3 py-2">
+                                        @Html.DisplayFor(modelItem => item.City.Name)
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group shadow-sm" role="group">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning" title="Düzenle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info" title="Detaylar">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger" title="Sil">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="card-footer text-center py-4 bg-white">
+                <span class="text-muted italic">Sistemde henüz kayıtlı bir ilçe bulunamadı.</span>
+            </div>
+        }
+    </div>
+</div>

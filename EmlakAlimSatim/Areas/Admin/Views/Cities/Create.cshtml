@@ -1,0 +1,42 @@
+﻿@model EmlakAlimSatim.Models.City
+
+@{
+    ViewData["Title"] = "Şehir Ekle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Yeni Şehir Ekle</h4>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Create">
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold">Şehir Adı</label>
+                    <input asp-for="Name" class="form-control" placeholder="Şehir adı giriniz..." />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        ← Listeye Dön
+                    </a>
+
+                    <button type="submit" class="btn btn-success">
+                        ✔ Kaydet
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

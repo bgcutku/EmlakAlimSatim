@@ -1,0 +1,61 @@
+﻿@model EmlakAlimSatim.Models.District
+
+@{
+    ViewData["Title"] = "İlçe Sil";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card border-danger shadow-lg">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0 text-center">
+                        <i class="fas fa-trash-alt me-2"></i> İlçe Kaydını Sil
+                    </h5>
+                </div>
+
+                <div class="card-body p-4 text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-exclamation-circle text-danger fa-4x mb-3"></i>
+                        <h4 class="text-dark">Emin misiniz?</h4>
+                        <p class="text-muted">
+                            <strong>"@Model.Name"</strong> ilçesini silmek üzeresiniz. Bu işlem bu ilçeye bağlı verileri etkileyebilir.
+                        </p>
+                    </div>
+
+                    <div class="bg-light rounded p-3 mb-4 border">
+                        <div class="row text-start">
+                            <div class="col-5 text-secondary fw-bold">İlçe Adı:</div>
+                            <div class="col-7 text-dark">@Html.DisplayFor(model => model.Name)</div>
+
+                            <div class="col-5 text-secondary fw-bold mt-2">Bağlı Olduğu Şehir:</div>
+                            <div class="col-7 text-dark mt-2">
+                                <span class="badge bg-secondary">@Html.DisplayFor(model => model.City.Name)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4">
+                                <i class="fas fa-times me-1"></i> İptal Et
+                            </a>
+                            <button type="submit" class="btn btn-danger px-4 shadow">
+                                <i class="fas fa-check me-1"></i> Evet, Silmek İstiyorum
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-footer bg-transparent text-center">
+                    <small class="text-muted italic">İlçe silindiğinde sistemden kalıcı olarak kaldırılır.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

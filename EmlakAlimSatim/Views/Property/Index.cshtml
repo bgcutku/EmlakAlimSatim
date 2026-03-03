@@ -1,0 +1,67 @@
+﻿@model List<EmlakAlimSatim.Models.Property>
+
+@{
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="section section-properties">
+    <div class="container">
+        <div class="row mb-5 align-items-center">
+            <div class="col-lg-6">
+                <h2 class="font-weight-bold text-primary heading">
+                    Son Eklenen İlanlar
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mb-4">
+                        <div class="property-item">
+                            <a asp-controller="Property" asp-action="Details" asp-route-id="@item.Id" class="img">
+                                <img src="@(string.IsNullOrEmpty(item.CoverImage) ? "/Home/images/img_1.jpg" : item.CoverImage)"
+                                     alt="Image"
+                                     class="img-fluid" />
+                            </a>
+
+                            <div class="property-content">
+                                <div class="price mb-2">
+                                    <span>@item.Price.ToString("N0") ₺</span>
+                                </div>
+
+                                <div>
+                                    <span class="d-block mb-2 text-black-50">
+                                        @item.City?.Name / @item.District?.Name
+                                    </span>
+
+                                    <span class="city d-block mb-3">
+                                        @item.Title
+                                    </span>
+
+                                    <div class="specs d-flex mb-4">
+                                        <span class="d-block d-flex align-items-center me-3">
+                                            <span class="icon-home me-2"></span>
+                                            <span class="caption">
+                                                @item.RoomCount Oda
+                                            </span>
+                                        </span>
+
+
+                                    </div>
+
+                                    <a asp-controller="Property" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary py-2 px-3">
+                                        Detayları Gör
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>
