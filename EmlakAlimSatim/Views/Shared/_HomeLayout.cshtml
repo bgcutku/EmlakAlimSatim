@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="~/Home/css/style.css" />
 
     <title>
-        Property &mdash; Free Bootstrap 5 Website Template by Untree.co
+        Hayal Emlak - Düşlerdeki Eviniz
     </title>
 </head>
 <body>
@@ -45,28 +45,18 @@
         <div class="container">
             <div class="menu-bg-wrap">
                 <div class="site-navigation">
-                    <a href="index.html" class="logo m-0 float-start">Property</a>
+                    <a href="index.html" class="logo m-0 float-start">Hayal Emlak</a>
 
                     <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
-                        <li class="active"><a href="index.html">Home</a></li>
+                        <li class="active"><a href="index.html">Ana Sayfa</a></li>
                         <li class="has-children">
-                            <a href="properties.html">Properties</a>
+                            <a href="#">Tüm İlanlar</a>
                             <ul class="dropdown">
-                                <li><a href="#">Buy Property</a></li>
-                                <li><a href="#">Sell Property</a></li>
-                                <li class="has-children">
-                                    <a href="#">Dropdown</a>
-                                    <ul class="dropdown">
-                                        <li><a href="#">Sub Menu One</a></li>
-                                        <li><a href="#">Sub Menu Two</a></li>
-                                        <li><a href="#">Sub Menu Three</a></li>
-                                    </ul>
-                                </li>
+                                <li><a href="/Home/Satilik">Satılık</a></li>
+                                <li><a href="/Home/Kiralik">Kiralık</a></li>
                             </ul>
                         </li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="~/Admin/Login">Yönetici Giriş</a></li>
                     </ul>
 
                     <a href="#"
@@ -94,16 +84,12 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-lg-9 text-center">
                     <h1 class="heading" data-aos="fade-up">
-                        Easiest way to find your dream home
+                        Hayallerindeki Evi Bulmanın En Kolay Yolu
                     </h1>
-                    <form action="#"
-                          class="narrow-w form-search d-flex align-items-stretch mb-3"
-                          data-aos="fade-up"
-                          data-aos-delay="200">
-                        <input type="text"
-                               class="form-control px-4"
-                               placeholder="Your ZIP code or City. e.g. New York" />
-                        <button type="submit" class="btn btn-primary">Search</button>
+                    <form asp-controller="Home" asp-action="Search" method="get" class="narrow-w form-search d-flex align-items-stretch mb-3"
+                          data-aos="fade-up" data-aos-delay="200">
+                        <input type="text" name="search" class="form-control px-4" placeholder="Şehir, ilçe veya ilan başlığı..." />
+                        <button type="submit" class="btn btn-primary">Ara</button>
                     </form>
                 </div>
             </div>
@@ -114,131 +100,7 @@
     <!--Dinamaik olacak-->
 
     <!--Müşteri Yorum-->
-    <div class="section sec-testimonials">
-        <div class="container">
-            <div class="row mb-5 align-items-center">
-                <div class="col-md-6">
-                    <h2 class="font-weight-bold heading text-primary mb-4 mb-md-0">
-                        Customer Says
-                    </h2>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <div id="testimonial-nav">
-                        <span class="prev" data-controls="prev">Prev</span>
 
-                        <span class="next" data-controls="next">Next</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4"></div>
-            </div>
-            <div class="testimonial-slider-wrap">
-                <div class="testimonial-slider">
-                    <div class="item">
-                        <div class="testimonial">
-                            <img src="/Home/images/person_1-min.jpg"
-                                 alt="Image"
-                                 class="img-fluid rounded-circle w-25 mb-4" />
-                            <div class="rate">
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                            </div>
-                            <h3 class="h5 text-primary mb-4">James Smith</h3>
-                            <blockquote>
-                                <p>
-                                    &ldquo;Far far away, behind the word mountains, far from the
-                                    countries Vokalia and Consonantia, there live the blind
-                                    texts. Separated they live in Bookmarksgrove right at the
-                                    coast of the Semantics, a large language ocean.&rdquo;
-                                </p>
-                            </blockquote>
-                            <p class="text-black-50">Designer, Co-founder</p>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="testimonial">
-                            <img src="images/person_2-min.jpg"
-                                 alt="Image"
-                                 class="img-fluid rounded-circle w-25 mb-4" />
-                            <div class="rate">
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                            </div>
-                            <h3 class="h5 text-primary mb-4">Mike Houston</h3>
-                            <blockquote>
-                                <p>
-                                    &ldquo;Far far away, behind the word mountains, far from the
-                                    countries Vokalia and Consonantia, there live the blind
-                                    texts. Separated they live in Bookmarksgrove right at the
-                                    coast of the Semantics, a large language ocean.&rdquo;
-                                </p>
-                            </blockquote>
-                            <p class="text-black-50">Designer, Co-founder</p>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="testimonial">
-                            <img src="images/person_3-min.jpg"
-                                 alt="Image"
-                                 class="img-fluid rounded-circle w-25 mb-4" />
-                            <div class="rate">
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                            </div>
-                            <h3 class="h5 text-primary mb-4">Cameron Webster</h3>
-                            <blockquote>
-                                <p>
-                                    &ldquo;Far far away, behind the word mountains, far from the
-                                    countries Vokalia and Consonantia, there live the blind
-                                    texts. Separated they live in Bookmarksgrove right at the
-                                    coast of the Semantics, a large language ocean.&rdquo;
-                                </p>
-                            </blockquote>
-                            <p class="text-black-50">Designer, Co-founder</p>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="testimonial">
-                            <img src="images/person_4-min.jpg"
-                                 alt="Image"
-                                 class="img-fluid rounded-circle w-25 mb-4" />
-                            <div class="rate">
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                                <span class="icon-star text-warning"></span>
-                            </div>
-                            <h3 class="h5 text-primary mb-4">Dave Smith</h3>
-                            <blockquote>
-                                <p>
-                                    &ldquo;Far far away, behind the word mountains, far from the
-                                    countries Vokalia and Consonantia, there live the blind
-                                    texts. Separated they live in Bookmarksgrove right at the
-                                    coast of the Semantics, a large language ocean.&rdquo;
-                                </p>
-                            </blockquote>
-                            <p class="text-black-50">Designer, Co-founder</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!--Müşteri Yorum End-->
 
     <!--Bottom-->
@@ -249,12 +111,12 @@
                 <div class="col-lg-4">
                     <div class="widget">
                         <h3>Contact</h3>
-                        <address>43 Raymouth Rd. Baltemoer, London 3910</address>
+                        <address>Atatürk Cad. Mavivatan Sok, İstanbul 34000</address>
                         <ul class="list-unstyled links">
-                            <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
-                            <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
+                            <li><a href="tel://11234567890">+90(123)-456-7890</a></li>
+                            <li><a href="tel://11234567890">+90(123)-456-7890</a></li>
                             <li>
-                                <a href="mailto:info@mydomain.com">info@mydomain.com</a>
+                                <a href="mailto:info@emlakalimsatim.com">info@emlakalimsatim.com</a>
                             </li>
                         </ul>
                     </div>
@@ -266,19 +128,7 @@
                         <h3>Sources</h3>
                         <ul class="list-unstyled float-start links">
                             <li><a href="#">About us</a></li>
-                            <li><a href="#">Services</a></li>
-                            <li><a href="#">Vision</a></li>
-                            <li><a href="#">Mission</a></li>
-                            <li><a href="#">Terms</a></li>
                             <li><a href="#">Privacy</a></li>
-                        </ul>
-                        <ul class="list-unstyled float-start links">
-                            <li><a href="#">Partners</a></li>
-                            <li><a href="#">Business</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Creative</a></li>
                         </ul>
                     </div>
                     <!-- /.widget -->

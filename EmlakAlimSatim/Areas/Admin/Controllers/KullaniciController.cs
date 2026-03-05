@@ -34,7 +34,7 @@ namespace EmlakAlimSatim.Areas.Admin.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index", "Kullanici", new {area="Admin"});
             }
-            return View();
+            return View(kullanici);
         }
         [HttpGet]
         public IActionResult Edit(int id)

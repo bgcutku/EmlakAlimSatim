@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 using EmlakAlimSatim.Data;
 using EmlakAlimSatim.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,37 @@ namespace EmlakAlimSatim.Controllers
                 .Include(p => p.City)
                 .Include(p => p.District)
                 .OrderByDescending(p => p.Id)
-                .Take(8)
+                .Take(6)
                 .ToList();
             return View(properties);
+        }
+
+        public IActionResult Search(string search)
+        {
+            var ilan = _context.Properties
+                .Include(p => p.City)
+                .Include(p => p.District)
+                .Where(p => p.Title.Contains(search) || p.District.Name.Contains(search) || p.City.Name.Contains(search)).ToList();
+            return View(ilan);
+        }
+        public IActionResult Satilik()
+        {
+            var sati = _context.Properties
+                .Include(p => p.City)
+                .Include(p => p.District)
+                .Where(p => p.ListingType == "Satýlýk" && p.IsActive)
+                .OrderByDescending(p => p.Id).ToList();
+            return View(sati);
+
+        }
+        public IActionResult Kiralik()
+        {
+            var kira = _context.Properties
+                .Include(p => p.City)
+                .Include(p => p.District)
+                .Where(p => p.ListingType == "Kiralýk" && p.IsActive)
+                .OrderByDescending(p => p.Id).ToList();
+            return View(kira);
         }
 
         public IActionResult Privacy()

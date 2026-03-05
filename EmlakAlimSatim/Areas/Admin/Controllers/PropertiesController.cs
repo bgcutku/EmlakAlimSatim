@@ -62,8 +62,6 @@ namespace EmlakAlimSatim.Areas.Admin.Controllers
         }
 
         // POST: Admin/Properties/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]        
         public async Task<IActionResult> Create([Bind("Id,Title,Description,Price,SquareMeters,RoomCount,BuildingAge,Floor,TotalFloors,HeatingType,ListingType,IsActive,CreatedAt,UpdatedAt,CoverImage,KullaniciId,CategoryId,CityId,DistrictId,Address")] Property @property, IFormFile ImageFile)
@@ -140,13 +138,18 @@ namespace EmlakAlimSatim.Areas.Admin.Controllers
         }
 
         // POST: Admin/Properties/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Price,SquareMeters,RoomCount,BuildingAge,Floor,TotalFloors,HeatingType,ListingType,IsActive,CreatedAt,UpdatedAt,CoverImage,KullaniciId,CategoryId,CityId,DistrictId,Address")] Property @property)
+        public async Task<IActionResult> Edit(int id, Property property, IFormFile ImageFile)
         {
-            if (id != @property.Id)
+            if (id != property.Id)
+            {
+                return NotFound();
+            }
+
+            var mevcutIlan = await _context.Properties.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+
+            if (mevcutIlan == null)
             {
                 return NotFound();
             }
@@ -155,12 +158,41 @@ namespace EmlakAlimSatim.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(@property);
+                    // Yeni resim seçildiyse
+                    if (ImageFile != null && ImageFile.Length > 0)
+                    {
+                        string dosyaAdi = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+
+                        string klasorYolu = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/properties");
+
+                        if (!Directory.Exists(klasorYolu))
+                        {
+                            Directory.CreateDirectory(klasorYolu);
+                        }
+
+                        string tamYol = Path.Combine(klasorYolu, dosyaAdi);
+
+                        using (var stream = new FileStream(tamYol, FileMode.Create))
+                        {
+                            await ImageFile.CopyToAsync(stream);
+                        }
+
+                        property.CoverImage = "/img/properties/" + dosyaAdi;
+                    }
+                    else
+                    {
+                        // Resim seçilmediyse eski resmi koru
+                        property.CoverImage = mevcutIlan.CoverImage;
+                    }
+
+                    property.UpdatedAt = DateTime.Now;
+
+                    _context.Update(property);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PropertyExists(@property.Id))
+                    if (!PropertyExists(property.Id))
                     {
                         return NotFound();
                     }
@@ -169,13 +201,17 @@ namespace EmlakAlimSatim.Areas.Admin.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", @property.CategoryId);
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Id", @property.CityId);
-            ViewData["DistrictId"] = new SelectList(_context.Districts, "Id", "Id", @property.DistrictId);
-            ViewData["KullaniciId"] = new SelectList(_context.kullanicilars, "KullaniciID", "Ad", @property.KullaniciId);
-            return View(@property);
+
+            // HATA OLURSA LİSTELERİ YENİDEN DOLDUR
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", property.CategoryId);
+            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", property.CityId);
+            ViewData["DistrictId"] = new SelectList(_context.Districts.Where(d => d.CityId == property.CityId), "Id", "Name", property.DistrictId);
+            ViewData["KullaniciId"] = new SelectList(_context.kullanicilars, "KullaniciID", "Ad", property.KullaniciId);
+
+            return View(property);
         }
 
         // GET: Admin/Properties/Delete/5
