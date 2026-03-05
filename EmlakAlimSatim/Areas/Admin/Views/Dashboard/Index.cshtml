@@ -1,6 +1,103 @@
-﻿@{
-    ViewData["Title"] = "Dashboard";
+﻿@using EmlakAlimSatim.Areas.Admin.Models
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Admin Paneli";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Admin Paneli Dashboard</h2>
-<p>Giriş başarılı!</p>
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Toplam İlan</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalPropertiesCount</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Satılık</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.SaleCount</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Kiralık</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.RentCount</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Yeni Mesajlar</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalMessagesCount</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Son Eklenen 5 İlan</h6>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Başlık</th>
+                            <th>Fiyat</th>
+                            <th>Tip</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.RecentProperties)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold small text-truncate" style="max-width:180px;">@item.Title</div>
+                                </td>
+                                <td class="fw-semibold small">@item.Price.ToString("N0") ₺</td>
+                                <td>
+                                    <span class="badge @(item.ListingType == "Satılık" ? "bg-success" : "bg-warning text-dark")">@item.ListingType</span>
+                                </td>
+                                <td>
+                                    <span class="badge @(item.IsActive ? "bg-success" : "bg-secondary")">
+                                        @(item.IsActive ? "Aktif" : "Pasif")
+                                    </span>                                    
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-secondary">Son Mesajlar</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    @foreach (var msg in Model.RecentMessages)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            @msg.Name - @msg.Content
+                            <span class="badge badge-primary badge-pill">@msg.SendDate.ToShortDateString()</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
