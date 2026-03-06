@@ -8,9 +8,7 @@
     <div class="container">
         <div class="row mb-5 align-items-center">
             <div class="col-lg-6">
-                <h2 class="font-weight-bold text-primary heading">
-                    Son Eklenen İlanlar
-                </h2>
+                <h2 class="font-weight-bold text-primary heading">Son Eklenen İlanlar</h2>
             </div>
         </div>
 
@@ -26,9 +24,8 @@
                                 <img src="@(string.IsNullOrEmpty(item.CoverImage)
                                                                                  ? "/Home/images/img_1.jpg"
                                                                                  : item.CoverImage)"
-                             alt="Image"
-                             class="img-fluid" />
-                    </a>
+                             alt="Image"class="img-fluid" />
+                            </a>
 
                             <div class="property-content">
                                 <div class="price mb-2">
@@ -54,16 +51,15 @@
                                     </div>
 
                                     <a href="/Property/Details/@item.Id"
-                                       class="btn btn-primary py-2 px-3">
-                                        Detayları Gör
-                                    </a>
+                                       class="btn btn-primary py-2 px-3">Detayları Gör</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                        }
-            }
-            
+                }
+
+                
+            }       
             
 
         </div>
